@@ -1,0 +1,45 @@
+.rate-star {
+    display: inline-block;
+    width: 55px;
+    height: 11px;
+    background: url(../../assets/images/ic_rating_s.png);
+}
+.rate50 {
+    background-position: 0 0;
+}
+.rate45 {
+    background-position: 0 -11px;
+}
+.rate40 {
+    background-position: 0 -22px;
+}
+.rate35 {
+    background-position: 0 -33px;
+}
+.rate30 {
+    background-position: 0 -44px;
+}
+.rate25 {
+    background-position: 0 -55px;
+}
+.rate20 {
+    background-position: 0 -66px;
+}
+.rate15 {
+    background-position: 0 -77px;
+}
+.rate10 {
+    background-position: 0 -88px;
+}
+.rate5 {
+    background-position: 0 -99px;
+}
+.rate0 {
+    background-position: 0 -110px;
+}
+
+.rate-text {
+    margin-left: 10px;
+    color: #e09015;
+    font-size: 12px;
+}

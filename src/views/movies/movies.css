@@ -1,0 +1,12 @@
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 200px;
+}
+.movies>div {
+    margin: 15px 6px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 30%;
+}
