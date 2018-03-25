@@ -8,4 +8,7 @@ body {
   padding: 0;
   text-decoration: none;
   list-style: none;
+  background: none;
+  border: none;
+  outline: none;
 }
