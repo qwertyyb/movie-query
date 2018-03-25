@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {Map, List} from 'immutable'
-import './App.css';
-import Movies from './components/movies/movies'
-import TabBar from './components/tabbar/tabbar'
-import Loading from './components/loading/loading'
+import './index.css';
+import Movies from '../../components/movies/movies'
+import TabBar from '../../components/tabbar/tabbar'
+import Loading from '../../components/loading/loading'
 
-import {getShowingList, getIncomingList} from './utils/api'
+import {getShowingList, getIncomingList} from '../../utils/api'
 
 class App extends Component {
   constructor(props) {
@@ -71,6 +71,7 @@ class App extends Component {
       res = await getIncomingList(start + count)
     }
     let list = res.subjects.map(movie => ({
+      id: movie.id,
       title: movie.title,
       rate: movie.rating.average,
       img: movie.images.large,
@@ -111,7 +112,7 @@ class App extends Component {
     let ended = start + count >= total
     let loadText = this.state.isLoadingMore ? '正在加载' : '加载更多'
     return (
-      <div className="App">
+      <div className="index">
         <div className="movie-wrapper">
           <Movies movies={curList}/>
           {!ended && <button className="load-btn"

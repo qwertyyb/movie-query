@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     min-width: 200px;
 }
-.movies>div {
+.movies .movie {
     margin: 15px 6px;
     display: flex;
     justify-content: center;

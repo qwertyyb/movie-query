@@ -20,3 +20,6 @@ export function getShowingList(start, count, city = '北京') {
 export function getIncomingList(start = 0, count = 20) {
   return http.get('/v2/movie/coming_soon', {params: {start, count}})
 }
+export function getMovieInfo(id) {
+  return http.get(`/v2/movie/subject/${id}`)
+}
