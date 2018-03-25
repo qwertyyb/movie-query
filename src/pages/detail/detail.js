@@ -50,7 +50,7 @@ export default class Detail extends React.Component {
           </div>
           <div className="right">
             <ul>
-              <li className="title">{this.state.title}</li>
+              <li className="title">{this.state.movieInfo.title}</li>
               <li className="type"><span className="item-title">类型：</span>{type}</li>
               <li className="time"><span className="item-title">时长：</span>{time}</li>
               <li className="language"><span className="item-title">语言：</span>{language}</li>
