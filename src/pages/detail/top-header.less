@@ -1,0 +1,36 @@
+.top-header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  padding: 15px;
+  .right, .left {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+  }
+  .mask {
+    position: absolute;
+    width: 100vw;
+    filter: blur(10px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .thumb {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 36vw;
+    margin-right: 15px;
+  }
+  .right {
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 25px;
+  }
+  .title {
+    font-size: 20px;
+  }
+}

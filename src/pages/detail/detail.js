@@ -1,17 +1,18 @@
 import React from 'react'
+import './detail.less'
 import {getMovieInfo} from '../../utils/api'
 
-import './detail.less'
+import TopHeader from './top-header'
+import DetailItem from './detail-item'
 
 export default class Detail extends React.Component {
   constructor(props) {
     super(props)
 
-    this.showFull = this.showFull.bind(this)
-    this.hideFull = this.hideFull.bind(this)
+    this.toggleFull = this.toggleFull.bind(this)
 
     this.state = {
-      fulldetail: false,
+      fullSummary: false,
       movieInfo: {}
     }
   }
@@ -23,11 +24,8 @@ export default class Detail extends React.Component {
     let res = await getMovieInfo(id)
     this.setState({movieInfo: res})
   }
-  showFull(type) {
-    this.setState({['full'+type]: true})
-  }
-  hideFull(type) {
-    this.setState({['full'+type]: false})
+  toggleFull(type) {
+    this.setState((prev) => ({['full' + type]: !prev['full' + type]}))
   }
   render() {
     if (!this.state.movieInfo.title) {
@@ -41,51 +39,48 @@ export default class Detail extends React.Component {
     let rate = movieInfo.rating.average
     let date = movieInfo.pubdates.join('/')
     let actors = movieInfo.casts
+    let directors = movieInfo.directors
     return (
       <div className="detail-page">
-        <div className="top-wrapper">
-          <img src={thumb} alt={this.state.title} className="mask"/>
-          <div className="left">
-            <img src={thumb} alt={this.state.title} className="thumb"/>
-          </div>
-          <div className="right">
-            <ul>
-              <li className="title">{this.state.movieInfo.title}</li>
-              <li className="type"><span className="item-title">类型：</span>{type}</li>
-              <li className="time"><span className="item-title">时长：</span>{time}</li>
-              <li className="language"><span className="item-title">语言：</span>{language}</li>
-              <li className="rate"><span className="item-title">评分：</span>{rate?rate+'分':'暂无评分'}</li>
-              <li className="date"><span className="item-title">日期：</span>{date}</li>
-            </ul>
-          </div>
-        </div>
+        <TopHeader thumb={thumb} type={type} time={time} language={language} rate={rate} date={date}/>
         <div className="detail-wrapper">
-          <div className={"detail-item " + (this.state.fulldetail?'full':'')}>
-            <h3 className="detail-item__title">剧情梗概</h3>
-            <div className="detail-item__content">{movieInfo.summary}</div>
-            <button onClick={()=>this.showFull('detail')} className="detail-item__btn more-btn">显示更多</button>
-            <button onClick={()=>this.hideFull('detail')} className="detail-item__btn summary-btn">隐藏更多</button>
-          </div>
-          <div className="detail-item">
-            <h3 className="detail-item__title">演员</h3>
-            <div className="detail-item__actors">
+          <DetailItem title="剧情梗概">
+            <p className={"summary-content " + (this.state.fullSummary?'full':'')}>{movieInfo.summary}</p>
+            <button onClick={()=>this.toggleFull('Summary')} 
+              className="detail-item__btn">{this.state.fullSummary?'隐藏更多':'显示更多'}</button>
+          </DetailItem>
+          <DetailItem title="影人" className="card-content">
+            {directors.map(actor => (
+              <div key={actor.id} className="card">
+                <img src={actor.avatars.large} alt={actor.name} className="card-img"/>
+                <h4 className="card-title">{actor.name}</h4>
+                <p className="card-sub-title">导演</p>
+              </div>))}
               {actors.map(actor => (
-                <div key={actor.id} className="actor">
-                  <img src={actor.avatars.large} alt={actor.name}/>
-                  <h4 className="actor-name">{actor.name}</h4>
-                </div>))}
-            </div>
-          </div>
-          <div className="detail-item">
-            <h3 className="detail-item__title">剧照</h3>
-            <div className="detail-item__images">
-              {movieInfo.photos.map(photo => (
-                <div key={photo.id} className="img-container">
-                  <img src={photo.cover} alt={photo.alt}/>
+              <div key={actor.id} className="card">
+                <img src={actor.avatars.large} alt={actor.name} className="card-img"/>
+                <h4 className="card-title">{actor.name}</h4>
+                <p className="card-sub-title">演员</p>
+              </div>))}
+          </DetailItem>
+          <DetailItem title="预告片" className="card-content">
+            {movieInfo.trailers.map(trailer => (
+              <div key={trailer.id} className="card video">
+                <video
+                  src={trailer.resource_url} title={trailer.title}
+                  poster={trailer.medium}
+                  className="card-video"/>
+                <h4 className="card-title">{trailer.title}</h4>
+              </div>
+            ))}
+          </DetailItem>
+          <DetailItem title="剧照" className="card-content">
+            {movieInfo.photos.map(photo => (
+                <div key={photo.id} className="card">
+                  <img src={photo.cover} alt={photo.alt} className="card-img"/>
                 </div>
               ))}
-            </div>
-          </div>
+          </DetailItem>
         </div>
       </div> 
     )
