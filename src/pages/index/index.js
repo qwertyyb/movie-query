@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Map, List} from 'immutable'
-import './index.css';
+import './index.less';
 import Movies from '../../components/movies/movies'
 import TabBar from '../../components/tabbar/tabbar'
 import Loading from '../../components/loading/loading'

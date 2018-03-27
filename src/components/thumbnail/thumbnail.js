@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import RateStar from '../rate/rate'
 
-import './thumbnail.css'
+import './thumbnail.less'
 
 class ThumbNail extends Component {
   render() {

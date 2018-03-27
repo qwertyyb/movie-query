@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../assets/font/iconfont.css'
-import './tabbar.css'
+import './tabbar.less'
 
 export default class TabBar extends React.Component {
   onTabClicked(tab) {

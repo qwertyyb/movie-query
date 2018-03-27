@@ -1,7 +1,7 @@
 import React from 'react'
 import {getMovieInfo} from '../../utils/api'
 
-import './detail.css'
+import './detail.less'
 
 export default class Detail extends React.Component {
   constructor(props) {

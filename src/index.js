@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route} from 'react-router-dom'
-import './index.css';
+import './index.less';
 import Index from './pages/index/index';
 import Detail from './pages/detail/detail'
 import registerServiceWorker from './registerServiceWorker';

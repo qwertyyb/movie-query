@@ -1,5 +1,5 @@
 import React from 'react'
-import './loading.css'
+import './loading.less'
 
 export default class Loading extends React.Component {
   render() {

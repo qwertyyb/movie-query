@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './rate.css'
+import './rate.less'
 
 export default class RateStar extends Component {
   render() {

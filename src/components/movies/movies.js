@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import ThumbNail from '../../components/thumbnail/thumbnail'
 
-import './movies.css'
+import './movies.less'
 
 export default class Movies extends Component {
   render() {
