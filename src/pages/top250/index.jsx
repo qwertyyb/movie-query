@@ -25,7 +25,7 @@ export default class Top250 extends React.Component {
     let res = await getTop250(start + count)
     let list = res.subjects.map((movie, index) => ({
       id: movie.id,
-      title: `${res.start + index + 1}、movie.title`,
+      title: `${res.start + index + 1}、${movie.title}`,
       rate: movie.rating.average,
       img: movie.images.large,
       date: movie.mainland_pubdate, // 大陆上映日期
