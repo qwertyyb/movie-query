@@ -4,7 +4,7 @@ import './index.less';
 import Movies from '../../components/movies/movies'
 import TabBar from '../../components/tabbar/tabbar'
 import Loading from '../../components/loading/loading'
-
+import SearchPanel from '../../components/searchpanel/searchpanel'
 import {getShowingList, getIncomingList} from '../../utils/api'
 
 class App extends Component {
@@ -46,7 +46,12 @@ class App extends Component {
    * @memberof App
    */
   onTabChange(tab) {
-    console.log(this.state.list.get(tab).count())
+    if(tab === 'searching') {
+      this.setState({
+        curTab: tab
+      })
+      return
+    }
     if(!this.state.list.get(tab).count()) {
       this.getList(tab)
     }
@@ -104,22 +109,31 @@ class App extends Component {
       this.getList(curTab)
     }
   }
-
-  render() {
+  getShowMovies() {
     let curList = this.state.list.get(this.state.curTab)
     let {start, count, total} = this.state.pager.get(this.state.curTab)
     console.log(start, count, total)
     let ended = start + count >= total
     let loadText = this.state.isLoadingMore ? '正在加载' : '加载更多'
     return (
+      <React.Fragment>
+        <Movies movies={curList}/>
+        {!ended && <button className="load-btn"
+          disabled={this.state.isLoadingMore}
+          onClick={this.loadMore}>{loadText}</button>}
+        {this.state.showLoading && <Loading/>}
+      </React.Fragment>
+    )
+  }
+  render() {
+    return (
       <div className="index">
-        <div className="movie-wrapper">
-          <Movies movies={curList}/>
-          {!ended && <button className="load-btn"
-            disabled={this.state.isLoadingMore}
-            onClick={this.loadMore}>{loadText}</button>}
-          {this.state.showLoading && <Loading/>}
-        </div>
+        {this.state.curTab !== 'searching' && <div className="movie-wrapper">
+          {this.getShowMovies()}
+        </div>}
+        {this.state.curTab === 'searching' && <div className="search-wrapper">
+          <SearchPanel/>
+        </div>}
         <div className="tab-wrapper">
           <TabBar onTabChange={this.onTabChange} curTab={this.state.curTab}/>
         </div>

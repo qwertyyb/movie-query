@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>IconFont</title>
-    <link rel="stylesheet" href="demo.less">
+    <link rel="stylesheet" href="demo.css">
     <script src="iconfont.js"></script>
 
     <style type="text/css">
@@ -16,7 +16,7 @@
           /* 通过设置 color 来改变 SVG 的颜色/fill */
           fill: currentColor;
           /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
-             normalize.less 中也包含这行 */
+             normalize.css 中也包含这行 */
           overflow: hidden;
         }
 
@@ -33,6 +33,14 @@
                     </svg>
                     <div class="name">media_from_all</div>
                     <div class="fontclass">#icon-mediafromall</div>
+                </li>
+            
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-search"></use>
+                    </svg>
+                    <div class="name">search</div>
+                    <div class="fontclass">#icon-search</div>
                 </li>
             
                 <li>

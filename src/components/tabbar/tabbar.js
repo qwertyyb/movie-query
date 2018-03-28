@@ -15,6 +15,10 @@ export default class TabBar extends React.Component {
           <i className="tab-item__img iconfont icon-mediafromall"/>
           <h3 className="tab-item__title">正在上映</h3>
         </div>
+        <div className={this.props.curTab==='searching'?activeClassName:defaultClassName} onClick={this.onTabClicked.bind(this, 'searching')}>
+          <i className="tab-item__img iconfont icon-search"/>
+          <h3 className="tab-item__title">热点搜索</h3>
+        </div>
         <div className={this.props.curTab==='incoming'?activeClassName:defaultClassName}>
           <i className="tab-item__img iconfont icon-clock" onClick={this.onTabClicked.bind(this, 'incoming')}/>
           <h3 className="tab-item__title">即将上映</h3>
