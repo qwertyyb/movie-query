@@ -1,6 +1,16 @@
-.detail-page {
-}
+@navHeight: 50px;
 
+.detail-page {
+  padding-top: @navHeight;
+  .navigation-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    height: @navHeight;
+  }
+}
 .detail-page .detail-wrapper {
   padding: 15px;
   .summary-content {

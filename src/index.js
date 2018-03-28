@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {HashRouter, Route} from 'react-router-dom'
 import './index.less';
 import Index from './pages/index/index';
-import Detail from './pages/detail/detail'
+import Detail from './pages/detail/detail.jsx'
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render((

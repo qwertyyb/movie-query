@@ -4,6 +4,7 @@ import {getMovieInfo} from '../../utils/api'
 
 import TopHeader from './top-header'
 import DetailItem from './detail-item'
+import NavigationBar from '../../components/navigation/navigation'
 
 export default class Detail extends React.Component {
   constructor(props) {
@@ -42,7 +43,10 @@ export default class Detail extends React.Component {
     let directors = movieInfo.directors
     return (
       <div className="detail-page">
-        <TopHeader thumb={thumb} type={type} time={time} language={language} rate={rate} date={date}/>
+        <div className="navigation-wrapper">
+          <NavigationBar title={movieInfo.title}/>
+        </div>
+        <TopHeader thumb={thumb} title={movieInfo.title} type={type} time={time} language={language} rate={rate} date={date}/>
         <div className="detail-wrapper">
           <DetailItem title="剧情梗概">
             <p className={"summary-content " + (this.state.fullSummary?'full':'')}>{movieInfo.summary}</p>
