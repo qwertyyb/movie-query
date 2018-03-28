@@ -4,7 +4,6 @@ var http = axios.create({
   baseURL: 'https://bird.ioliu.cn/v1?url=https://api.douban.com/'
 })
 http.interceptors.request.use(config => {
-  console.log(config)
   config.url  += '?apikey=0b2bdeda43b5688921839c8ecb20399b'
   return config
 })
@@ -22,4 +21,7 @@ export function getIncomingList(start = 0, count = 20) {
 }
 export function getMovieInfo(id) {
   return http.get(`/v2/movie/subject/${id}`)
+}
+export function getTop250(start = 0, count = 20) {
+  return http.get('/v2/movie/top250', {params: {start, count}})
 }

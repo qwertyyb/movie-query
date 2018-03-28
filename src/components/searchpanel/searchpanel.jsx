@@ -1,12 +1,13 @@
 import React from 'react'
 import './searchpanel.less'
+import {Link} from 'react-router-dom'
 
 export default class SearchPanel extends React.Component {
   render() {
     return (
       <div className="search-panel">
         <div className="tag-content">
-          <h4 className="tag">Top250</h4>
+          <Link to='/top250' className="tag">Top250</Link>
           <h4 className="tag">口碑榜</h4>
           <h4 className="tag">北美票房榜</h4>
           <h4 className="tag">新片榜</h4>

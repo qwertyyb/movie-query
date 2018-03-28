@@ -1,12 +1,25 @@
-.movies {
-    display: flex;
-    flex-wrap: wrap;
-    min-width: 200px;
-}
-.movies .movie {
-    margin: 15px 6px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 30%;
+.movies-wrapper {
+    .movies {
+        display: flex;
+        flex-wrap: wrap;
+        min-width: 200px;
+    }
+    .movie {
+        margin: 15px 6px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 30%;
+    }
+    .load-btn {
+        width: 100%;
+        font-size: 18px;
+        height: 48px;
+        border: none;
+        color: #0e88eb;
+        outline: none;
+    }
+    .load-btn[disabled] {
+        color: #ccc;
+    }
 }

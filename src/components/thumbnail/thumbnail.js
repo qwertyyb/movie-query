@@ -15,7 +15,7 @@ class ThumbNail extends Component {
           <RateStar rate={this.props.rate} />
         </div>
         <div className="thumbnail-date">
-          {this.props.date}上映
+          {this.props.date.length <= 0 ? '暂无上映日期' : this.props.date + '上映'}
         </div>
       </div>
     )

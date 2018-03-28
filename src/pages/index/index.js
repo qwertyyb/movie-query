@@ -112,15 +112,14 @@ class App extends Component {
   getShowMovies() {
     let curList = this.state.list.get(this.state.curTab)
     let {start, count, total} = this.state.pager.get(this.state.curTab)
-    console.log(start, count, total)
     let ended = start + count >= total
-    let loadText = this.state.isLoadingMore ? '正在加载' : '加载更多'
     return (
       <React.Fragment>
-        <Movies movies={curList}/>
-        {!ended && <button className="load-btn"
-          disabled={this.state.isLoadingMore}
-          onClick={this.loadMore}>{loadText}</button>}
+        <Movies
+          movies={curList}
+          isLoadingMore={this.state.isLoadingMore}
+          ended={ended}
+          onLoadMore={this.loadMore}/>
         {this.state.showLoading && <Loading/>}
       </React.Fragment>
     )
@@ -128,10 +127,10 @@ class App extends Component {
   render() {
     return (
       <div className="index">
-        {this.state.curTab !== 'searching' && <div className="movie-wrapper">
+        {this.state.curTab !== 'searching' && <div className="tab-panel">
           {this.getShowMovies()}
         </div>}
-        {this.state.curTab === 'searching' && <div className="search-wrapper">
+        {this.state.curTab === 'searching' && <div className="tab-panel search-wrapper">
           <SearchPanel/>
         </div>}
         <div className="tab-wrapper">
