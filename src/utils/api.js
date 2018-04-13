@@ -25,3 +25,10 @@ export function getMovieInfo(id) {
 export function getTop250(start = 0, count = 20) {
   return http.get('/v2/movie/top250', {params: {start, count}})
 }
+
+export function getCities() {
+  return axios.get('https://raw.githubusercontent.com/cn/GB2260.js/develop/lib/201607.json').then(res => res.data)
+}
+export function getMyCity() {
+  return axios.get('http://ip-api.com/json/?lang=zh-CN').then(res => res.data)
+}

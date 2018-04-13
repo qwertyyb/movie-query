@@ -7,6 +7,7 @@ import Loading from '../../components/loading/loading'
 import SearchPanel from '../../components/searchpanel/searchpanel'
 import {getShowingList, getIncomingList} from '../../utils/api'
 
+/* global sessionStorage */
 class App extends Component {
   constructor(props) {
     super(props)
@@ -36,6 +37,13 @@ class App extends Component {
   }
   componentDidMount() {
     this.getList()
+  }
+  
+  componentWillMount() {
+    console.log('will Mount')
+  }
+  componentWillUnmount() {
+    sessionStorage.setItem('scollTop', window.scrollY)
   }
 
   /**
@@ -92,6 +100,9 @@ class App extends Component {
         total: res.total
       }),
       isLoadingMore: false
+    }, () => {
+      let scrollTop = sessionStorage.getItem('scollTop') || 0
+      window.scrollTo(0, scrollTop)
     })
   }
 
