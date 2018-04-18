@@ -1,4 +1,6 @@
 import React from 'react'
+import NavigationBar from '../../components/navigation/navigation'
+
 import {getCities, getMyCity} from '../../utils/api'
 import './index.less'
 
@@ -53,12 +55,13 @@ export default class CityPicker extends React.Component {
     let hotCities = this.state.hotCities.map(city => <li key={city} className="city-item hot">{city}</li>)
     return (
       <div className="city-picker-container">
+        <NavigationBar title="选择城市"/>
         <div className="input-wrapper">
           <input value={this.state.filter} onChange={this.filterChanged} type="text" placeholder="请输入" className="city-input"/>
         </div>
         {!this.state.filter.trim() && <React.Fragment>
           <div className="hot-city-wrapper">
-            <h4 className="wrapper-title">热门城市</h4>
+            <h4 className="wrapper-title">当前城市</h4>
             <p className="city-item">{this.state.locCity}</p>
           </div>
           <div className="hot-city-wrapper">

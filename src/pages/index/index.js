@@ -5,6 +5,7 @@ import Movies from '../../components/movies/movies'
 import TabBar from '../../components/tabbar/tabbar'
 import Loading from '../../components/loading/loading'
 import SearchPanel from '../../components/searchpanel/searchpanel'
+import CityBar from '../../components/citybar/'
 import {getShowingList, getIncomingList} from '../../utils/api'
 
 /* global sessionStorage */
@@ -139,6 +140,7 @@ class App extends Component {
     return (
       <div className="index">
         {this.state.curTab !== 'searching' && <div className="tab-panel">
+          <CityBar />
           {this.getShowMovies()}
         </div>}
         {this.state.curTab === 'searching' && <div className="tab-panel search-wrapper">
