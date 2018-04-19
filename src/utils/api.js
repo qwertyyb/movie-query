@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jsonp from 'jsonp'
 
 var http = axios.create({
   baseURL: 'https://bird.ioliu.cn/v1?url=https://api.douban.com/'
@@ -30,5 +31,14 @@ export function getCities() {
   return axios.get('https://raw.githubusercontent.com/cn/GB2260.js/develop/lib/201607.json').then(res => res.data)
 }
 export function getMyCity() {
-  return axios.get('http://ip-api.com/json/?lang=zh-CN').then(res => res.data)
+  // return axios.get('http://whois.pconline.com.cn/ipJson.jsp', {}, {type: 'jsonp'}).then(res => res.data)
+  return new Promise((resolve, reject) => {
+    jsonp('https://whois.pconline.com.cn/ipJson.jsp', {}, function(err, data) {
+      if(err) {
+        reject(err)
+        return
+      }
+      resolve(data)
+    })
+  })
 }
