@@ -17,12 +17,16 @@ export default class CityBar extends React.Component {
   componentDidMount() {
     this.getMyCity()
   }
+
+  tabChanged(tabName) {
+    this.props.onTabChange(tabName)
+  }
   render() {
     return (
       <div className="citybar-wrapper">
         <Link to="/citypicker" className="city-area">{this.state.city}&nbsp;<i className="fa fa-caret-down"></i></Link>
-        <div className="showing">正在上映</div>
-        <div className="incoming">即将上映</div>
+        <div onClick={()=>this.tabChanged('showing')} className="showing">正在上映</div>
+        <div onClick={()=>this.tabChanged('incoming')} className="incoming">即将上映</div>
         <div className="search"><i className="fa fa-search"></i></div>
       </div>
     )

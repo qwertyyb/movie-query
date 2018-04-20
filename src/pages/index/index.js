@@ -140,7 +140,7 @@ class App extends Component {
     return (
       <div className="index">
         {this.state.curTab !== 'searching' && <div className="tab-panel">
-          <CityBar />
+          <CityBar onTabChange={this.onTabChange} curTab={this.state.curTab}/>
           {this.getShowMovies()}
         </div>}
         {this.state.curTab === 'searching' && <div className="tab-panel search-wrapper">
