@@ -3,9 +3,9 @@
   "name": "影讯 查看最新的电影信息",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icon.png",
+      "sizes": "130x130 96x96 64x64 32x32 24x24 16x16",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
