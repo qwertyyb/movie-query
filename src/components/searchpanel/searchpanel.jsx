@@ -14,7 +14,7 @@ export default class SearchPanel extends React.Component {
         </div>
         <div className="input-content">
           <input type="text" name="search"/>
-          <i className="iconfont icon-search"></i>
+          <i className="icon-search fa fa-search"></i>
         </div>
       </div>
     )

@@ -9,7 +9,7 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <div className="navigation-bar">
-        <i className="iconfont icon-i-back" onClick={() => this.routeBack()}></i>
+        <i className="icon-back fa fa-arrow-left" onClick={() => this.routeBack()}></i>
         <h2 className="navigation-bar__title">{this.props.title}</h2>
       </div>
     )

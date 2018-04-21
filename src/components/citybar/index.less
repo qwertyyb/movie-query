@@ -1,11 +1,23 @@
+@import '../../styles/theme.less';
+
 .citybar-wrapper {
   display: flex;
-  padding: 10px 15px;
+  padding: 0 15px;
+  height: 40px;
   font-size: 1em;
   justify-content: space-between;
   box-shadow: 0 7px 10px #dedede;
   align-items: center;
   .search {
     font-size: 1.2em;
+  }
+  .tab-item {
+    position: relative;
+    height: 100%;
+    line-height: 40px;
+    box-sizing: border-box;
+    &.active {
+      border-bottom: 4px solid @theme-color;
+    }
   }
 }

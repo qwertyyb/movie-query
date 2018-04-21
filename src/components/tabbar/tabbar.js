@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../assets/font/iconfont.css'
 import './tabbar.less'
 
 export default class TabBar extends React.Component {
@@ -12,15 +11,15 @@ export default class TabBar extends React.Component {
     return (
       <div className="tabbar">
         <div className={this.props.curTab==='showing'?activeClassName:defaultClassName} onClick={this.onTabClicked.bind(this, 'showing')}>
-          <i className="tab-item__img iconfont icon-mediafromall"/>
+          <i className="tab-item__img fa fa-video-camera"/>
           <h3 className="tab-item__title">正在上映</h3>
         </div>
         <div className={this.props.curTab==='searching'?activeClassName:defaultClassName} onClick={this.onTabClicked.bind(this, 'searching')}>
-          <i className="tab-item__img iconfont icon-search"/>
+          <i className="tab-item__img fa fa-search"/>
           <h3 className="tab-item__title">热点搜索</h3>
         </div>
-        <div className={this.props.curTab==='incoming'?activeClassName:defaultClassName}>
-          <i className="tab-item__img iconfont icon-clock" onClick={this.onTabClicked.bind(this, 'incoming')}/>
+        <div className={this.props.curTab==='account'?activeClassName:defaultClassName}>
+          <i className="tab-item__img fa fa-user-circle-o"/>
           <h3 className="tab-item__title">即将上映</h3>
         </div>
       </div>

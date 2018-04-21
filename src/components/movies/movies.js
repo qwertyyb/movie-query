@@ -11,6 +11,7 @@ export default class Movies extends Component {
   render() {
     let loadText = this.props.isLoadingMore ? '正在加载' : '加载更多'
     let movies = this.props.movies
+    let showLoadMore = !this.props.ended && movies.size>0
     return (
       <div className="movies-wrapper">
         <div className="movies">
@@ -24,7 +25,7 @@ export default class Movies extends Component {
             </Link>)
           )}
         </div>
-        {!this.props.ended && <button className="load-btn"
+        {showLoadMore && <button className="load-btn"
           disabled={this.props.isLoadingMore}
           onClick={() => this.loadMore()}>{loadText}</button>}
       </div>
