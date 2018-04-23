@@ -87,6 +87,7 @@ export default class Detail extends React.Component {
               {movieInfo.trailers.map(trailer => (
                 <div key={trailer.id} className="card video">
                   <video
+                    controls
                     src={trailer.resource_url} title={trailer.title}
                     poster={trailer.medium}
                     className="card-video"/>
