@@ -2,7 +2,7 @@ import axios from 'axios'
 import jsonp from 'jsonp'
 
 var http = axios.create({
-  baseURL: 'https://proxy.qwertyyb.cn/douban/'
+  baseURL: 'https://proxy.qwertyyb.cn/api.douban.com/'
 })
 http.interceptors.request.use(config => {
   config.url  += '?apikey=0b2bdeda43b5688921839c8ecb20399b'
