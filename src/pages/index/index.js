@@ -1,50 +1,65 @@
-import React, { Component } from 'react';
-import {Map, List} from 'immutable'
+import React, { Component } from 'react'
+import qs from 'query-string'
 import './index.less';
 import Movies from '../../components/movies/movies'
 import TabBar from '../../components/tabbar/tabbar'
 import Loading from '../../components/loading/loading'
 import SearchPanel from '../../components/searchpanel/searchpanel'
 import CityBar from '../../components/citybar/'
-import {getShowingList, getIncomingList} from '../../utils/api'
+import { Consumer } from '../../context'
+
+const tabs = [
+  {
+    iconClass: 'fa fa-video-camera',
+    text: '正在上映',
+  },
+  {
+    iconClass: 'fa fa-search',
+    text: '即将上映'
+  }
+]
+
 
 /* global sessionStorage */
-class App extends Component {
+class Index extends Component {
   constructor(props) {
     super(props)
-
-    this.onTabChange = this.onTabChange.bind(this)
+    this.onTabClick = this.onTabClick.bind(this)
     this.loadMore = this.loadMore.bind(this)
-
     this.state = {
-      curTab: 'showing',  // 当前正显示的标签
-      showLoading: true,  // 是否显示正在加载组件
-      isLoadingMore: false,  // 是否正在加载更多
-      list: Map({         // 显示电影的列表
-        showing: List([]),      // 正在上映的电影列表
-        incoming: List([])      // 即将上映的电影列表
-      }),
-      pager: Map({        // 显示列表的页面控制，包括总数，和当前加载的数据统计
-        showing: {
-          start: 0,
-          count: 0
-        },
-        incoming: {
-          start: 0,
-          count: 0
-        }
-      })
+      tabIndex: 0
+    }
+  }
+  static getDerivedStateFromProps(props) {
+    return {
+      tabIndex: +qs.parse(props.location.search).tab || 0
     }
   }
   componentDidMount() {
-    this.getList()
+    console.log(this.state.tabIndex)
+    const { list, dispatch, commit } = this.props
+    const { tabIndex } = this.state  
+    if (!list.get(tabIndex).size) {
+      commit('updateShowLoadingStatus', true)
+      dispatch('getList', tabIndex)
+    } else {
+      window.scrollTo(0, +sessionStorage.getItem('scrollTop'))
+    }
   }
-  
-  componentWillMount() {
-    console.log('will Mount')
+  componentDidUpdate(prevProps) {
+    if(prevProps.location !== this.props.location) {
+      const { list, commit } = this.props
+      const { tabIndex } = this.state
+      if (!list.get(tabIndex).size) {
+        commit('updateShowLoadingStatus', true)
+        this.props.dispatch('getList', tabIndex)
+      }
+    }
   }
+
   componentWillUnmount() {
-    sessionStorage.setItem('scollTop', window.scrollY)
+    console.log(window.scrollY)
+    sessionStorage.setItem('scrollTop', window.scrollY)
   }
 
   /**
@@ -54,104 +69,72 @@ class App extends Component {
    * @param {any} tab 
    * @memberof App
    */
-  onTabChange(tab) {
-    if(tab === 'searching') {
-      this.setState({
-        curTab: tab
-      })
-      return
-    }
-    if(!this.state.list.get(tab).count()) {
-      this.getList(tab)
-    }
-    this.setState({
-      curTab: tab,
-      showLoading: this.state.list.get(tab).count() <= 0
-    })
-  }
-
-  /**
-   * 获取正在显示的类型的电影列表
-   * 
-   * @param {string} [type='showing'] 
-   * @memberof App
-   */
-  async getList(type = 'showing') {
-    let pager = this.state.pager.get(type)
-    let {start, count} = pager
-    if(type === 'showing') {
-      var res = await getShowingList(start + count)
-    } else {
-      res = await getIncomingList(start + count)
-    }
-    let list = res.subjects.map(movie => ({
-      id: movie.id,
-      title: movie.title,
-      rate: movie.rating.average,
-      img: movie.images.large,
-      date: movie.mainland_pubdate, // 大陆上映日期
-    }))
-    let updatedList = this.state.list.get(type).concat(list)
-    this.setState({
-      list: this.state.list.set(type, updatedList),
-      showLoading: false,
-      pager: this.state.pager.set(type, {
-        start: res.start,
-        count: res.count,
-        total: res.total
-      }),
-      isLoadingMore: false
-    }, () => {
-      let scrollTop = sessionStorage.getItem('scollTop') || 0
-      window.scrollTo(0, scrollTop)
+  onTabClick(tab, index) {
+    const { history, location } = this.props;
+    history.push({
+      pathname: location.pathname,
+      search: qs.stringify({ tab: index })
     })
   }
 
   canLoad() {
-    let curTab = this.state.curTab
-    let pager = this.state.pager.get(curTab)
-    console.log(pager)
+    const { tabIndex } = this.state
+    let pager = this.props.pager.get(tabIndex)
     return pager.start + pager.count <= pager.total
   }
 
   loadMore() {
-    let curTab = this.state.curTab
+    const { tabIndex } = this.state
     if(this.canLoad()) {
-      this.setState({isLoadingMore: true})
-      this.getList(curTab)
+      this.props.commit('updateLoadMoreStatus', true)
+      this.props.dispatch('getList', tabIndex)
     }
   }
   getShowMovies() {
-    let curList = this.state.list.get(this.state.curTab)
-    let {start, count, total} = this.state.pager.get(this.state.curTab)
+    const { list, pager, loadMore } = this.props
+    const { tabIndex } = this.state
+    let curList = list.get(tabIndex)
+    let {start, count, total} = pager.get(0)
     let ended = start + count >= total
     return (
       <React.Fragment>
-        <Movies
-          movies={curList}
-          isLoadingMore={this.state.isLoadingMore}
-          ended={ended}
-          onLoadMore={this.loadMore}/>
-        {this.state.showLoading && <Loading/>}
+        {this.props.showLoading ?
+          <Loading/>
+          : 
+          <Movies
+            movies={curList}
+            isLoadingMore={loadMore}
+            ended={ended}
+            onLoadMore={this.loadMore}/>}
       </React.Fragment>
     )
   }
   render() {
+    const { tabIndex } = this.state
     return (
       <div className="index">
-        {this.state.curTab !== 'searching' && <div className="tab-panel">
-          <CityBar onTabChange={this.onTabChange} curTab={this.state.curTab}/>
+        {tabIndex !== 2 && <div className="tab-panel">
+          <CityBar city={this.props.city} />
           {this.getShowMovies()}
         </div>}
-        {this.state.curTab === 'searching' && <div className="tab-panel search-wrapper">
+        {tabIndex === 2 && <div className="tab-panel search-wrapper">
           <SearchPanel/>
         </div>}
         <div className="tab-wrapper">
-          <TabBar onTabChange={this.onTabChange} curTab={this.state.curTab}/>
+          <TabBar tabs={tabs} onTabClick={this.onTabClick} curTabIndex={tabIndex}/>
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default (props) => {
+  return (
+    <Consumer>
+      {state => {
+        const newProps = { ...props, ...state }
+        return <Index {...newProps} />
+      }}
+    </Consumer>
+  )
+}

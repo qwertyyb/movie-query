@@ -1,12 +1,12 @@
 import React from 'react'
 import './detail.less'
 import {getMovieInfo} from '../../utils/api'
-
 import Loading from '../../components/loading/loading'
-
 import TopHeader from './top-header'
 import DetailItem from './detail-item'
 import NavigationBar from '../../components/navigation/navigation'
+
+const defaultAvatar = 'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
 
 export default class Detail extends React.Component {
   constructor(props) {
@@ -58,7 +58,7 @@ export default class Detail extends React.Component {
     return (
       <div className="detail-page">
         <div className="navigation-wrapper">
-          <NavigationBar title={movieInfo.title}/>
+          <NavigationBar title={movieInfo.title} history={this.props.history} />
         </div>
         <div className="detail-content">
           {this.state.isLoading && <Loading />}
@@ -72,13 +72,13 @@ export default class Detail extends React.Component {
             <DetailItem title="影人" className="card-content">
               {directors.map(actor => (
                 <div key={actor.id} className="card">
-                  <img src={actor.avatars.large} alt={actor.name} className="card-img"/>
+                  <img src={actor.avatars ? actor.avatars.large : defaultAvatar} alt={actor.name} className="card-img"/>
                   <h4 className="card-title">{actor.name}</h4>
                   <p className="card-sub-title">导演</p>
                 </div>))}
                 {actors.map(actor => (
                 <div key={actor.id} className="card">
-                  <img src={actor.avatars.large} alt={actor.name} className="card-img"/>
+                  <img src={actor.avatars ? actor.avatars.large : defaultAvatar} alt={actor.name} className="card-img"/>
                   <h4 className="card-title">{actor.name}</h4>
                   <p className="card-sub-title">演员</p>
                 </div>))}

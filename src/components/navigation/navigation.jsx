@@ -1,10 +1,9 @@
 import React from 'react'
 import './navigation.less'
-import PropTypes from 'prop-types'
 
 class NavigationBar extends React.Component {
   routeBack() {
-    this.context.router.history.goBack()
+    this.props.history.goBack()
   }
   render() {
     return (
@@ -14,9 +13,6 @@ class NavigationBar extends React.Component {
       </div>
     )
   }
-}
-NavigationBar.contextTypes = {
-  router: PropTypes.object.isRequired
 }
 
 export default NavigationBar
