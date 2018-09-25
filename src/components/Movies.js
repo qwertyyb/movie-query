@@ -28,23 +28,25 @@ const Movies = ({ isLoadingMore, movies, showLoadMore, onLoadMore, className }) 
 
 const StyledMovies = styled(Movies)`
   .movies {
-      display: flex;
-      flex-wrap: wrap;
-      min-width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .movie {
       margin: 8px 6px;
       display: flex;
       justify-content: center;
       flex-direction: column;
+      flex: auto;
       width: 30%;
+      max-width: 240px;
   }
   .load-btn {
       width: 100%;
       font-size: 18px;
       height: 48px;
       border: none;
-      color: @theme-color;
+      color: ${props=>props.theme.color};
       outline: none;
   }
   .load-btn[disabled] {

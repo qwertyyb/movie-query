@@ -86,7 +86,7 @@ class Index extends Component {
     const { list, pager, loadMore } = this.props
     const { tabIndex } = this.state
     let curList = list.get(tabIndex)
-    let {start, count, total} = pager.get(0)
+    let {start, count, total} = pager.get(tabIndex)
     return (
       <React.Fragment>
         {this.props.showLoading ?

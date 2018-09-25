@@ -4,7 +4,7 @@ import './App.less';
 import AppProvider from './AppProvider'
 import ThemeProvider from './ThemeProvider'
 import Index from './pages/index/index';
-import Detail from './pages/detail/detail.jsx'
+import Detail from './pages/detail/detail'
 import Top250 from './pages/top250/'
 import CityPicker from './pages/citypicker/'
 

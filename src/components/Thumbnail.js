@@ -7,7 +7,9 @@ const StyledThumbNail = styled.div`
   text-align: center;
   display: inline-block;
   & .thumbnail-img-content {
-    max-height: 280px;
+    position: relative;
+    padding-bottom: 140%;
+    height: 0;
     overflow: hidden;
   }
   & .thumbnail-img {
@@ -29,12 +31,6 @@ const StyledThumbNail = styled.div`
   & .thumbnail-date {
     color: #999;
     font-size: 14px;
-  }
-
-  @media screen and (max-width: 600px) {
-    .thumbnail-img-content {
-        max-height: 42vw;
-    }
   }
 `
 export default ({ img, title, rate, date }) => (
