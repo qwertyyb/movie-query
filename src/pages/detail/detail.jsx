@@ -1,10 +1,10 @@
 import React from 'react'
 import './detail.less'
 import {getMovieInfo} from '../../utils/api'
-import Loading from '../../components/loading/loading'
+import Loading from '../../components/Spin'
 import TopHeader from './top-header'
 import DetailItem from './detail-item'
-import NavigationBar from '../../components/navigation/navigation'
+import NavigationBar from '../../components/Navigation'
 
 const defaultAvatar = 'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
 

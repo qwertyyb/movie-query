@@ -1,5 +1,5 @@
 import React from 'react'
-import NavigationBar from '../../components/navigation/navigation'
+import NavigationBar from '../../components/Navigation'
 import { Consumer } from '../../context'
 import { getCities } from '../../utils/api'
 import './index.less'

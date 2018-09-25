@@ -1,7 +1,6 @@
 import React from 'react';
 import { List } from 'immutable'
 import { getIncomingList, getShowingList, getCurrentCity } from './utils/api'
-import './index.less';
 import { Provider } from './context'
 
 export default class AppProvider extends React.Component {

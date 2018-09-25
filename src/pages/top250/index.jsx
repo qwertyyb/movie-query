@@ -1,7 +1,7 @@
 import React from 'react'
-import Movies from '../../components/movies/movies'
-import NavigationBar from '../../components/navigation/navigation'
-import Loading from '../../components/loading/loading'
+import Movies from '../../components/Movies'
+import NavigationBar from '../../components/Navigation'
+import Loading from '../../components/Spin'
 import './index.less'
 import {getTop250} from '../../utils/api'
 
@@ -13,7 +13,8 @@ export default class Top250 extends React.Component {
       isLoadingMore: false,
       pager: {
         start: 0,
-        count: 0
+        count: 0,
+        total: 0
       }
     }
   }
@@ -53,17 +54,17 @@ export default class Top250 extends React.Component {
     this.getList()
   }
   render() {
-    let ended = this.ended()
+    const { start, count, total } = this.state.pager
     let showLoading = this.state.list.length <= 0
     return (
       <div className="top250-page">
         <div className="navigation-wrapper">
-          <NavigationBar title="豆瓣电影Top250"/>
+          <NavigationBar title="豆瓣电影Top250" history={this.props.history}/>
         </div>
         <div className="movies-container">
           <Movies
             movies={this.state.list}
-            ended={ended}
+            showLoadMore={start + count < total}
             isLoadingMore={this.state.isLoadingMore}
             onLoadMore={()=>this.loadMore()}/>
           {showLoading && <Loading/>}
