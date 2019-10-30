@@ -2,10 +2,10 @@ import axios from 'axios'
 import jsonp from 'jsonp'
 
 var http = axios.create({
-  baseURL: 'https://proxy.qwertyyb.cn/api.douban.com/'
+  baseURL: ''
 })
 http.interceptors.request.use(config => {
-  config.url  += '?apikey=0b2bdeda43b5688921839c8ecb20399b'
+  config.url = 'https://cloudfn.qwertyyb.cn/release/proxy?url=' + encodeURIComponent(`https://api.douban.com${config.url}${config.url.includes('?') ? '&' : '?'}apikey=0b2bdeda43b5688921839c8ecb20399b`)
   return config
 })
 http.interceptors.response.use(res => {
@@ -15,16 +15,16 @@ http.interceptors.response.use(res => {
 })
 
 export function getShowingList(start, count, city = '北京') {
-  return http.get('/v2/movie/in_theaters', {params: {start, count, city}})
+  return http.get(`/v2/movie/in_theaters?start=${start}&count=${count}&city=${city}`)
 }
 export function getIncomingList(start = 0, count = 20) {
-  return http.get('/v2/movie/coming_soon', {params: {start, count}})
+  return http.get(`/v2/movie/coming_soon?start=${start}&count=${count}`)
 }
 export function getMovieInfo(id) {
   return http.get(`/v2/movie/subject/${id}`)
 }
 export function getTop250(start = 0, count = 20) {
-  return http.get('/v2/movie/top250', {params: {start, count}})
+  return http.get(`/v2/movie/top250?start=${start}&count=${count}`)
 }
 
 export function getCities() {
